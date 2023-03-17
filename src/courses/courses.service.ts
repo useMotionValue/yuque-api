@@ -1,10 +1,10 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-03-23 18:14:05
- * @LastEditTime: 2022-04-06 15:32:01
- * @LastEditors: Pacific_D
+ * @LastEditTime: 2023-03-17 17:24:32
+ * @LastEditors: DZR
  * @Description:
- * @FilePath: \class-schedule\src\courses\courses.service.ts
+ * @FilePath: \yuque-api\src\courses\courses.service.ts
  */
 import { Injectable } from "@nestjs/common"
 import ClassifyService from "src/classify/classify.service"

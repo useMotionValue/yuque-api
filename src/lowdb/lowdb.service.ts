@@ -1,10 +1,10 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-03-17 13:42:56
- * @LastEditTime: 2022-03-24 22:32:08
- * @LastEditors: Pacific_D
+ * @LastEditTime: 2023-03-17 17:18:54
+ * @LastEditors: DZR
  * @Description:
- * @FilePath: \class-schedule\src\lowdb\lowdb.service.ts
+ * @FilePath: \yuque-api\src\lowdb\lowdb.service.ts
  */
 import { Injectable } from "@nestjs/common"
 import * as lowdb from "lowdb"
@@ -129,6 +129,17 @@ export class LowdbService {
   async getByOption(collectionName: string, option: object): Promise<any> {
     const listData = await this.db.get(collectionName).find(option).value()
     if (!listData) return []
+    return listData
+  }
+
+  /**
+   * @description: 返回指定数量的数据
+   * @param {string} collectionName
+   * @param {number} quantity
+   * @return {*} listData
+   */
+  async getSpecifiedQuatity(collectionName: string, quantity: number): Promise<any> {
+    const listData = await this.db.get(collectionName).size(quantity).value()
     return listData
   }
 }

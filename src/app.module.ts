@@ -12,6 +12,7 @@ import { join } from "path"
 import { ClassifyModule } from "./classify/classify.module"
 import { CoursesModule } from "./courses/courses.module"
 import { UserModule } from "./user/user.module"
+import { ArticleModule } from "./article/article.module"
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { UserModule } from "./user/user.module"
     }),
     ClassifyModule,
     UserModule,
-    CoursesModule
+    CoursesModule,
+    ArticleModule
   ]
 })
 export class AppModule {}
