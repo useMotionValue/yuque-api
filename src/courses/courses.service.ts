@@ -1,12 +1,13 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-03-23 18:14:05
- * @LastEditTime: 2023-03-17 17:24:32
- * @LastEditors: DZR
+ * @LastEditTime: 2023-03-18 09:55:16
+ * @LastEditors: Pacific_D
  * @Description:
  * @FilePath: \yuque-api\src\courses\courses.service.ts
  */
 import { Injectable } from "@nestjs/common"
+import { COLLECTION_NAME_ENUM } from "src/app.module"
 import ClassifyService from "src/classify/classify.service"
 import { Result, statusCodeEnum } from "src/config/resultType"
 import CoursesDBService from "src/coursesDB/coursesDB.service"
@@ -22,7 +23,7 @@ import ICoursesData from "./type/coursesData"
 
 @Injectable()
 export default class CoursesService {
-  private readonly COLLECTION_NAME = "weeks"
+  private readonly COLLECTION_NAME = COLLECTION_NAME_ENUM.WEEKS
   private result: Result
 
   constructor(
