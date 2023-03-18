@@ -2,7 +2,7 @@
  * @Author: PacificD
  * @Date: 2021-10-07 22:36:14
  * @LastEditors: Pacific_D
- * @LastEditTime: 2022-03-25 21:29:50
+ * @LastEditTime: 2023-03-18 09:56:21
  * @Description:
  */
 import { Injectable } from "@nestjs/common"
@@ -16,10 +16,11 @@ import User from "./pojo/User"
 import { v1 as uuidv1 } from "uuid"
 import UserVo from "./vo/UserVo"
 import GenerateService from "src/generate/generate.service"
+import { COLLECTION_NAME_ENUM } from "src/app.module"
 
 @Injectable()
 export class UserService {
-  private readonly COLLECTION_NAME = "user"
+  private readonly COLLECTION_NAME = COLLECTION_NAME_ENUM.USER
   private dbService: LowdbService
   private result: Result
 

@@ -1,10 +1,10 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-03-23 11:05:09
- * @LastEditTime: 2022-04-05 17:56:18
+ * @LastEditTime: 2023-03-18 09:54:23
  * @LastEditors: Pacific_D
  * @Description:
- * @FilePath: \class-schedule\src\classify\classify.service.ts
+ * @FilePath: \yuque-api\src\classify\classify.service.ts
  */
 
 import { Injectable } from "@nestjs/common"
@@ -15,10 +15,11 @@ import { v1 as uuidv1 } from "uuid"
 import Classify from "./pojo/Classify"
 import { UserService } from "src/user/user.service"
 import ClassifyDBService from "src/classifyDB/classifyDB.service"
+import { COLLECTION_NAME_ENUM } from "src/app.module"
 
 @Injectable()
 export default class ClassifyService {
-  private readonly COLLECTION_NAME = "classify"
+  private readonly COLLECTION_NAME = COLLECTION_NAME_ENUM.CLASSIFY
   private result: Result
 
   constructor(
