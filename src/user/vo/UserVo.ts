@@ -1,10 +1,10 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-03-23 15:05:16
- * @LastEditTime: 2022-03-23 15:11:32
- * @LastEditors: Pacific_D
+ * @LastEditTime: 2023-03-18 14:02:06
+ * @LastEditors: DZR
  * @Description:
- * @FilePath: \class-schedule\src\users\vo\UserVo.ts
+ * @FilePath: \yuque-api\src\user\vo\UserVo.ts
  */
 export default class UserVo {
   private id: string

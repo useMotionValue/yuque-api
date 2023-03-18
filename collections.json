@@ -1,0 +1,28 @@
+{
+  "collections": [
+    {
+      "userId": "c1a7b1b0-c494-11ed-ab40-674c0c36a5c7",
+      "collections": [
+        1,
+        3,
+        5
+      ]
+    },
+    {
+      "userId": "d8326a60-c494-11ed-ab40-674c0c36a5c7",
+      "collections": [
+        2,
+        1,
+        3
+      ]
+    },
+    {
+      "userId": "66605e70-c4c0-11ed-ae59-cb37c4bbbcef",
+      "collections": [
+        3,
+        8,
+        7
+      ]
+    }
+  ]
+}

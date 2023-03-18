@@ -6,8 +6,7 @@
  * @Description:
  * @FilePath: \yuque-api\src\article\article.controller.ts
  */
-import { Controller, Get, Param, Headers, UseGuards } from "@nestjs/common"
-import { AuthGuard } from "@nestjs/passport"
+import { Controller, Get, Param } from "@nestjs/common"
 import { ArticleService } from "./article.service"
 // import { CreateArticleDto } from './dto/create-article.dto';
 // import { UpdateArticleDto } from './dto/update-article.dto';
@@ -17,10 +16,7 @@ export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
   @Get(":quantity")
-  async getArticles(
-    @Param("quantity") quantity: number,
-    @Headers() headers: Record<string, string>
-  ) {
-    return this.articleService.getArticles(Math.floor(Number(quantity)), headers)
+  async getArticles(@Param("quantity") quantity: number) {
+    return this.articleService.getArticles(Math.floor(Number(quantity)))
   }
 }

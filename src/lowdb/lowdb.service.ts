@@ -1,7 +1,7 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-03-17 13:42:56
- * @LastEditTime: 2023-03-17 17:18:54
+ * @LastEditTime: 2023-03-18 14:35:36
  * @LastEditors: DZR
  * @Description:
  * @FilePath: \yuque-api\src\lowdb\lowdb.service.ts
@@ -12,10 +12,12 @@ import * as FileAsync from "lowdb/adapters/FileAsync"
 
 @Injectable()
 export class LowdbService {
+  private quantitySum: number
   private db: lowdb.LowdbAsync<any>
 
   constructor(collectionName) {
     this.initDatabase(collectionName)
+    this.quantitySum = 0
   }
 
   /**
@@ -139,7 +141,13 @@ export class LowdbService {
    * @return {*} listData
    */
   async getSpecifiedQuatity(collectionName: string, quantity: number): Promise<any> {
-    const listData = await this.db.get(collectionName).size(quantity).value()
+    const listDataArray = await this.db.get(collectionName).value()
+    if (this.quantitySum + quantity > listDataArray.length) {
+      //请求量超过数据库的值时设为0，再次从头开始返回数据
+      this.quantitySum = 0
+    }
+    const listData = listDataArray.slice(this.quantitySum, this.quantitySum + quantity)
+    this.quantitySum += quantity
     return listData
   }
 }

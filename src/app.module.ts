@@ -1,8 +1,8 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-03-22 22:57:06
- * @LastEditTime: 2023-03-18 09:56:12
- * @LastEditors: Pacific_D
+ * @LastEditTime: 2023-03-18 15:36:25
+ * @LastEditors: DZR
  * @Description:
  * @FilePath: \yuque-api\src\app.module.ts
  */
@@ -13,12 +13,14 @@ import { ClassifyModule } from "./classify/classify.module"
 import { CoursesModule } from "./courses/courses.module"
 import { UserModule } from "./user/user.module"
 import { ArticleModule } from "./article/article.module"
+import { CollectionModule } from "./collection/collection.module"
 
 export enum COLLECTION_NAME_ENUM {
   ARTICLES = "articles",
-  WEEKS = "wekks",
+  WEEKS = "weeks",
   CLASSIFY = "classify",
-  USER = "user"
+  USER = "user",
+  COLLECTIONS = "collections"
 }
 
 @Module({
@@ -29,7 +31,8 @@ export enum COLLECTION_NAME_ENUM {
     ClassifyModule,
     UserModule,
     CoursesModule,
-    ArticleModule
+    ArticleModule,
+    CollectionModule
   ]
 })
 export class AppModule {}
