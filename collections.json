@@ -2,27 +2,23 @@
   "collections": [
     {
       "userId": "c1a7b1b0-c494-11ed-ab40-674c0c36a5c7",
-      "collections": [
-        1,
-        3,
-        5
-      ]
+      "collections": []
     },
     {
       "userId": "d8326a60-c494-11ed-ab40-674c0c36a5c7",
-      "collections": [
-        2,
-        1,
-        3
-      ]
+      "collections": []
     },
     {
       "userId": "66605e70-c4c0-11ed-ae59-cb37c4bbbcef",
-      "collections": [
-        3,
-        8,
-        7
-      ]
+      "collections": []
+    },
+    {
+      "userId": "60f34ed0-c668-11ed-bd72-4dca2b85b68e",
+      "collections": []
+    },
+    {
+      "userId": "03ea7530-c733-11ed-b808-579252a48c85",
+      "collections": []
     }
   ]
 }

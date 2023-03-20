@@ -7,7 +7,7 @@
  * @FilePath: \yuque-api\src\collection\dto\create-collection.dto.ts
  */
 import { IsNotEmpty, IsNumberString } from "class-validator"
-
+//添加收藏的请求参数
 export class addCollectionDto {
   @IsNotEmpty()
   @IsNumberString()

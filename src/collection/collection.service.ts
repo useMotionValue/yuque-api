@@ -8,6 +8,7 @@ import CollectionDbService from "src/collectionDB/collection-db/collection-db.se
 import collectionVo from "./vo/collectionVo"
 import ArticleDbService from "src/article-db/article-db.service"
 import Article from "src/article/pojo/Article"
+import PersonalMsgDbService from "src/personalMsgDB/personal-msg-db/personal-msg-db.service"
 
 @Injectable()
 export class CollectionService {
@@ -17,7 +18,8 @@ export class CollectionService {
   constructor(
     private readonly userService: UserService,
     private readonly CollectionDbService: CollectionDbService,
-    private readonly ArticleDbService: ArticleDbService
+    private readonly ArticleDbService: ArticleDbService,
+    private readonly PersonalMsgDbService: PersonalMsgDbService
   ) {}
 
   private async getUserIdByToken(headers: Record<string, string>): Promise<string> {
@@ -29,6 +31,7 @@ export class CollectionService {
     return userId
   }
 
+  //获取所有收藏文章articleId
   async getCollections(headers: Record<string, string>): Promise<Result> {
     const userId = await this.getUserIdByToken(headers)
     let collections: Array<number>
@@ -38,6 +41,7 @@ export class CollectionService {
     )
     // console.log(JSON.stringify(ListData))
     collections = ListData.collections
+    //如果没有找到数据则返回空数组[]
     if (!collections) collections = []
     this.result = Result.success(new collectionVo(userId, collections))
     return this.result
@@ -59,12 +63,14 @@ export class CollectionService {
       { userId: userId }
     )
 
+    //判断articleId是否合法
     if (articleId < 0 || articleId > articleLength) {
       this.result = Result.successWithCustomCode(
         statusCodeEnum.BAD_REQUEST,
         "未找到该文章，请检查articleId是否正确!"
       )
     } else {
+      let flag = 0
       if (!ListData.userId) {
         //未找到相应用户，插入新用户的数据
         const data = {
@@ -86,8 +92,32 @@ export class CollectionService {
           this.result = Result.successWithCustomCode(statusCodeEnum.CREATED, "添加收藏成功！")
         } else {
           //已存在，无需添加收藏
+          flag = 1
           this.result = Result.successWithCustomCode(statusCodeEnum.OK, "已收藏，无需重复添加！")
         }
+      }
+      if (flag === 0) {
+        console.log("collectionSum++")
+        //如果添加了收藏，则修改个人信息里的collectionSum
+        const listData = await this.PersonalMsgDbService.dbService.getByOption(
+          COLLECTION_NAME_ENUM.PERSONALMSG,
+          {
+            userId: userId
+          }
+        )
+        const newData = {
+          userId: userId,
+          nickname: listData.nickname,
+          collectionSum: listData.collectionSum + 1,
+          personalizedSignature: listData.personalizedSignature
+        }
+        await this.PersonalMsgDbService.dbService.update(
+          COLLECTION_NAME_ENUM.PERSONALMSG,
+          {
+            userId: userId
+          },
+          newData
+        )
       }
     }
 
@@ -95,6 +125,7 @@ export class CollectionService {
   }
 
   async removeCollection(articleId: number, headers: Record<string, string>): Promise<Result> {
+    //取消收藏
     const userId = await this.getUserIdByToken(headers)
     const articleData: Array<Article> = await this.ArticleDbService.dbService.getAll(
       COLLECTION_NAME_ENUM.ARTICLES
@@ -105,6 +136,7 @@ export class CollectionService {
       { userId: userId }
     )
 
+    //判断articleId是否合法
     if (articleId < 0 || articleId > articleLength) {
       this.result = Result.successWithCustomCode(
         statusCodeEnum.BAD_REQUEST,
@@ -134,8 +166,34 @@ export class CollectionService {
             userId: userId,
             collections: newCollections
           }
-          await this.CollectionDbService.dbService.update(this.COLLECTION_NAME, ListData, data)
+          await this.CollectionDbService.dbService.update(
+            this.COLLECTION_NAME,
+            { userId: userId },
+            data
+          )
           this.result = Result.successWithCustomCode(statusCodeEnum.OK, "取消收藏成功！")
+
+          //删除文章后，更改个人信息里的collectionSum
+          console.log("collectionsSum--")
+          const listData = await this.PersonalMsgDbService.dbService.getByOption(
+            COLLECTION_NAME_ENUM.PERSONALMSG,
+            {
+              userId: userId
+            }
+          )
+          const newData = {
+            userId: listData.userId,
+            nickname: listData.nickname,
+            collectionSum: listData.collectionSum - 1,
+            personalizedSignature: listData.personalizedSignature
+          }
+          await this.PersonalMsgDbService.dbService.update(
+            COLLECTION_NAME_ENUM.PERSONALMSG,
+            {
+              userId: userId
+            },
+            newData
+          )
         }
       }
     }

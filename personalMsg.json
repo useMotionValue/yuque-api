@@ -1,0 +1,34 @@
+{
+  "personalMsg": [
+    {
+      "userId": "60f34ed0-c668-11ed-bd72-4dca2b85b68e",
+      "nickname": "小斌",
+      "collectionSum": 0,
+      "personalizedSignature": "ddga"
+    },
+    {
+      "userId": "66605e70-c4c0-11ed-ae59-cb37c4bbbcef",
+      "nickname": "小宏",
+      "collectionSum": 0,
+      "personalizedSignature": "ddga"
+    },
+    {
+      "userId": "c1a7b1b0-c494-11ed-ab40-674c0c36a5c7",
+      "nickname": "小君",
+      "collectionSum": 0,
+      "personalizedSignature": "22222"
+    },
+    {
+      "userId": "d8326a60-c494-11ed-ab40-674c0c36a5c7",
+      "nickname": "小明",
+      "collectionSum": 0,
+      "personalizedSignature": "我爱打代码！！"
+    },
+    {
+      "userId": "03ea7530-c733-11ed-b808-579252a48c85",
+      "nickname": "大军",
+      "collectionSum": 0,
+      "personalizedSignature": "我爱打代码！！"
+    }
+  ]
+}

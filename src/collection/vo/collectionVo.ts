@@ -6,9 +6,10 @@
  * @Description:
  * @FilePath: \yuque-api\src\collection\vo\collectionVo.ts
  */
-import Collection from "../pojo/Collection"
 
+//收藏接口返回数据类型
 export default class collectionVo {
+  //收藏文章的articleId数组，userId
   private collections: Array<number>
   private readonly userId: string
 

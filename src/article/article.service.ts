@@ -1,7 +1,7 @@
 /*
  * @Author: DZR
  * @Date: 2023-03-17 15:08:31
- * @LastEditTime: 2023-03-18 14:28:57
+ * @LastEditTime: 2023-03-19 11:49:20
  * @LastEditors: DZR
  * @Description:
  * @FilePath: \yuque-api\src\article\article.service.ts
@@ -21,7 +21,12 @@ export class ArticleService {
   constructor(private readonly ArticleDbService: ArticleDbService) {}
 
   async getArticles(quantity: number): Promise<Result> {
+    if (!quantity) {
+      this.result = Result.fail(statusCodeEnum.BAD_REQUEST, "参数有误！")
+      return this.result
+    }
     const Quantity = Math.floor(Number(quantity))
+
     if (Quantity < 1 || Quantity > 10) {
       this.result = Result.fail(statusCodeEnum.BAD_REQUEST, "quantity必须在1~10之间!")
       return this.result
@@ -31,8 +36,22 @@ export class ArticleService {
       this.COLLECTION_NAME,
       Quantity
     )
-    console.log(JSON.stringify(ListData))
+    // console.log(JSON.stringify(ListData))
     this.result = Result.success(new ArticleVo(ListData))
+    return this.result
+  }
+
+  async getArticleById(articleId: number) {
+    const dataList: Array<Article> = await this.ArticleDbService.dbService.getAll(
+      this.COLLECTION_NAME
+    )
+    const length = dataList.length
+    if (articleId < 0 || articleId > length - 1) {
+      this.result = Result.successWithCustomCode(statusCodeEnum.BAD_REQUEST, "articleId有误！")
+      return this.result
+    }
+    const data = dataList[articleId]
+    this.result = Result.success({ data: data })
     return this.result
   }
 }
