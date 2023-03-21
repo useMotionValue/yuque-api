@@ -1,9 +1,11 @@
-import { MiniNoteDto } from "../dto/MiniNoteDto"
+import MiniNotesPojo from "../pojo/MiniNotesPojo"
 
 export default class MiniNotesVo {
-  private MiniNotes: Array<MiniNoteDto>
+  private data: Array<MiniNotesPojo>
+  private userId: string
 
-  constructor(MiniNotes: Array<MiniNoteDto>) {
-    this.MiniNotes = MiniNotes
+  constructor(userId: string, data: Array<MiniNotesPojo>) {
+    this.userId = userId
+    this.data = data
   }
 }

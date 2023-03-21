@@ -39,7 +39,7 @@ export class CollectionService {
       this.COLLECTION_NAME,
       { userId: userId }
     )
-    // console.log(JSON.stringify(ListData))
+
     collections = ListData.collections
     //如果没有找到数据则返回空数组[]
     if (!collections) collections = []
@@ -54,14 +54,29 @@ export class CollectionService {
     //添加收藏
     const userId = await this.getUserIdByToken(headers)
     const articleId = addCollectionDto.articleId
+    //获取所有文章
     const articleData: Array<Article> = await this.ArticleDbService.dbService.getAll(
       COLLECTION_NAME_ENUM.ARTICLES
     )
     const articleLength = articleData.length
+    //获取个人信息
+    const personalMsg = await this.PersonalMsgDbService.dbService.getByOption(
+      COLLECTION_NAME_ENUM.PERSONALMSG,
+      {
+        userId: userId
+      }
+    )
+    //根据userId获取此人的收藏列表
     const ListData: Collection = await this.CollectionDbService.dbService.getByOption(
       this.COLLECTION_NAME,
       { userId: userId }
     )
+
+    if (!personalMsg.userId) {
+      //若该用户还未创建个人信息则抛出错误
+      this.result = Result.fail(statusCodeEnum.BAD_REQUEST, "请先创建个人信息后再添加收藏！")
+      return this.result
+    }
 
     //判断articleId是否合法
     if (articleId < 0 || articleId > articleLength) {
@@ -97,19 +112,13 @@ export class CollectionService {
         }
       }
       if (flag === 0) {
-        console.log("collectionSum++")
+        //console.log("collectionSum++")
         //如果添加了收藏，则修改个人信息里的collectionSum
-        const listData = await this.PersonalMsgDbService.dbService.getByOption(
-          COLLECTION_NAME_ENUM.PERSONALMSG,
-          {
-            userId: userId
-          }
-        )
         const newData = {
           userId: userId,
-          nickname: listData.nickname,
-          collectionSum: listData.collectionSum + 1,
-          personalizedSignature: listData.personalizedSignature
+          nickname: personalMsg.nickname,
+          collectionSum: personalMsg.collectionSum + 1,
+          personalizedSignature: personalMsg.personalizedSignature
         }
         await this.PersonalMsgDbService.dbService.update(
           COLLECTION_NAME_ENUM.PERSONALMSG,
@@ -127,14 +136,29 @@ export class CollectionService {
   async removeCollection(articleId: number, headers: Record<string, string>): Promise<Result> {
     //取消收藏
     const userId = await this.getUserIdByToken(headers)
+    //获取所有文章
     const articleData: Array<Article> = await this.ArticleDbService.dbService.getAll(
       COLLECTION_NAME_ENUM.ARTICLES
     )
     const articleLength = articleData.length
+    //根据userId获取此人的文章收藏列表
     const ListData: Collection = await this.CollectionDbService.dbService.getByOption(
       this.COLLECTION_NAME,
       { userId: userId }
     )
+    //获取个人信息
+    const personalMsg = await this.PersonalMsgDbService.dbService.getByOption(
+      COLLECTION_NAME_ENUM.PERSONALMSG,
+      {
+        userId: userId
+      }
+    )
+
+    if (!personalMsg.userId) {
+      //该用户还未创建个人信息
+      this.result = Result.fail(statusCodeEnum.BAD_REQUEST, "请先创建个人信息再取消收藏！")
+      return this.result
+    }
 
     //判断articleId是否合法
     if (articleId < 0 || articleId > articleLength) {
@@ -174,18 +198,11 @@ export class CollectionService {
           this.result = Result.successWithCustomCode(statusCodeEnum.OK, "取消收藏成功！")
 
           //删除文章后，更改个人信息里的collectionSum
-          console.log("collectionsSum--")
-          const listData = await this.PersonalMsgDbService.dbService.getByOption(
-            COLLECTION_NAME_ENUM.PERSONALMSG,
-            {
-              userId: userId
-            }
-          )
           const newData = {
-            userId: listData.userId,
-            nickname: listData.nickname,
-            collectionSum: listData.collectionSum - 1,
-            personalizedSignature: listData.personalizedSignature
+            userId: personalMsg.userId,
+            nickname: personalMsg.nickname,
+            collectionSum: personalMsg.collectionSum - 1,
+            personalizedSignature: personalMsg.personalizedSignature
           }
           await this.PersonalMsgDbService.dbService.update(
             COLLECTION_NAME_ENUM.PERSONALMSG,

@@ -1,7 +1,7 @@
 /*
  * @Author: DZR
  * @Date: 2023-03-17 15:08:31
- * @LastEditTime: 2023-03-19 11:49:20
+ * @LastEditTime: 2023-03-21 19:08:14
  * @LastEditors: DZR
  * @Description:
  * @FilePath: \yuque-api\src\article\article.service.ts
@@ -12,6 +12,7 @@ import Article from "./pojo/Article"
 import ArticleDbService from "src/article-db/article-db.service"
 import { COLLECTION_NAME_ENUM } from "src/app.module"
 import ArticleVo from "./vo/ArticleVo"
+import singleArticleVo from "./vo/singleArticleVo"
 
 @Injectable()
 export class ArticleService {
@@ -36,22 +37,26 @@ export class ArticleService {
       this.COLLECTION_NAME,
       Quantity
     )
-    // console.log(JSON.stringify(ListData))
     this.result = Result.success(new ArticleVo(ListData))
     return this.result
   }
 
   async getArticleById(articleId: number) {
+    //通过articleId来获取指定文章
     const dataList: Array<Article> = await this.ArticleDbService.dbService.getAll(
       this.COLLECTION_NAME
     )
     const length = dataList.length
     if (articleId < 0 || articleId > length - 1) {
+      //如果文章articleId不合法，抛出错误
       this.result = Result.successWithCustomCode(statusCodeEnum.BAD_REQUEST, "articleId有误！")
       return this.result
     }
-    const data = dataList[articleId]
-    this.result = Result.success({ data: data })
+    //通过articleId去数据库中获取对应文章
+    const data: Article = await this.ArticleDbService.dbService.getByOption(this.COLLECTION_NAME, {
+      articleId: Math.floor(Number(articleId))
+    })
+    this.result = Result.success(new singleArticleVo(data))
     return this.result
   }
 }

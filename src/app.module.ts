@@ -1,7 +1,7 @@
 /*
  * @Author: Pacific_D
  * @Date: 2022-03-22 22:57:06
- * @LastEditTime: 2023-03-19 18:05:48
+ * @LastEditTime: 2023-03-21 16:13:46
  * @LastEditors: DZR
  * @Description:
  * @FilePath: \yuque-api\src\app.module.ts
@@ -16,6 +16,8 @@ import { ArticleModule } from "./article/article.module"
 import { CollectionModule } from "./collection/collection.module"
 import { PersonalMsgModule } from "./personal-msg/personal-msg.module"
 import { MiniNotesModule } from "./mini-notes/mini-notes.module"
+import { CommentsModule } from "./comments/comments.module"
+import { FavourModule } from "./favour/favour.module"
 
 export enum COLLECTION_NAME_ENUM {
   ARTICLES = "articles",
@@ -24,7 +26,9 @@ export enum COLLECTION_NAME_ENUM {
   USER = "user",
   COLLECTIONS = "collections",
   PERSONALMSG = "personalMsg",
-  MININOTES = "mininotes"
+  MININOTES = "mininotes",
+  COMMENTS = "comments",
+  FAVOUR = "favour"
 }
 
 @Module({
@@ -39,7 +43,9 @@ export enum COLLECTION_NAME_ENUM {
     ArticleModule,
     CollectionModule,
     PersonalMsgModule,
-    MiniNotesModule
+    MiniNotesModule,
+    CommentsModule,
+    FavourModule
   ]
 })
 export class AppModule {}

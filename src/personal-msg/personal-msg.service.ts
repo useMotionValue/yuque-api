@@ -37,6 +37,7 @@ export class PersonalMsgService {
     headers: Record<string, string>
   ): Promise<Result> {
     const userId = await this.getUserIdByToken(headers)
+    //根据userId取数据库中获取用户个人信息
     const oldData = await this.PersonalMsgDbService.dbService.getByOption(this.COLLECTION_NAME, {
       userId: userId
     })
@@ -59,7 +60,6 @@ export class PersonalMsgService {
   //获取个人信息
   async getPersonalMsg(headers: Record<string, string>): Promise<Result> {
     const userId = await this.getUserIdByToken(headers)
-    // console.log("getPersonalMsg userId=" + userId)
     const listData = await this.PersonalMsgDbService.dbService.getByOption(this.COLLECTION_NAME, {
       userId: userId
     })

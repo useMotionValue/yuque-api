@@ -15,7 +15,7 @@ export class ArticleController {
 
   @Get("search/:articleId")
   async getArticleById(@Param("articleId") articleId: number) {
-    return this.articleService.getArticleById(articleId)
+    return this.articleService.getArticleById(Math.floor(Number(articleId)))
   }
 
   @Get(":quantity")

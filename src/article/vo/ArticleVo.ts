@@ -9,13 +9,6 @@
 import Article from "../pojo/Article"
 
 export default class ArticleVo {
-  // private title: string
-  // private content: string
-  // private articleId: number
-  // private time: string
-  // private imgUrl: string
-  // private headImgUrl: string
-  // private userName: string
   private articles: Array<Article>
 
   constructor(articles: Array<Article>) {

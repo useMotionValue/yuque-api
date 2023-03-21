@@ -2,7 +2,10 @@
   "collections": [
     {
       "userId": "c1a7b1b0-c494-11ed-ab40-674c0c36a5c7",
-      "collections": []
+      "collections": [
+        1,
+        2
+      ]
     },
     {
       "userId": "d8326a60-c494-11ed-ab40-674c0c36a5c7",

@@ -1,0 +1,77 @@
+{
+  "comments": [
+    {
+      "articleId": 0,
+      "comments": [
+        {
+          "nickname": "小明",
+          "headImgUrl": "http://localhost:8081/userImg.png",
+          "content": "good!",
+          "time": "03-20 18:00"
+        },
+        {
+          "nickname": "小君",
+          "headImgUrl": "http://localhost:8081/userImg.png",
+          "content": "very good!",
+          "time": "03-21 15:00"
+        },
+        {
+          "nickname": "小君",
+          "headImgUrl": "http://localhost:8081/userImg.png",
+          "content": "写的很好",
+          "time": "03-20 18:00"
+        }
+      ]
+    },
+    {
+      "articleId": 1,
+      "comments": [
+        {
+          "nickname": "小芳",
+          "headImgUrl": "http://localhost:8081/userImg.png",
+          "content": "good!",
+          "time": "03-20 17:00"
+        },
+        {
+          "nickname": "小君",
+          "headImgUrl": "http://localhost:8081/userImg.png",
+          "content": "very good!",
+          "time": "03-21 15:00"
+        }
+      ]
+    },
+    {
+      "articleId": 2,
+      "comments": [
+        {
+          "nickname": "小花",
+          "headImgUrl": "http://localhost:8081/userImg.png",
+          "content": "good!",
+          "time": "03-20 19:00"
+        }
+      ]
+    },
+    {
+      "articleId": 3,
+      "comments": [
+        {
+          "nickname": "小君",
+          "headImgUrl": "http://localhost:8081/userImg.png",
+          "content": "good!",
+          "time": "03-20 20:00"
+        }
+      ]
+    },
+    {
+      "articleId": 5,
+      "comments": [
+        {
+          "nickname": "小君",
+          "headImgUrl": "http://localhost:8081/userImg.png",
+          "content": "very good!",
+          "time": "03-21 15:00"
+        }
+      ]
+    }
+  ]
+}

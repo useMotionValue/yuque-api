@@ -8,15 +8,13 @@
  */
 
 export default class MiniNotesPojo {
-  public userId: string
   public content: string
   public createTime: string
   public notesId: string
 
-  constructor(userId: string, content: string, createTime: string, notesId: string) {
+  constructor(content: string, createTime: string, notesId: string) {
     this.content = content
     this.createTime = createTime
     this.notesId = notesId
-    this.userId = userId
   }
 }

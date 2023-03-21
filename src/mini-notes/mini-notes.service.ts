@@ -4,6 +4,7 @@ import { MiniNoteDto } from "./dto/MiniNoteDto"
 import { MiniNotesDbService } from "src/miniNotesDB/mini-notes-db/mini-notes-db.service"
 import { UserService } from "src/user/user.service"
 import { COLLECTION_NAME_ENUM } from "src/app.module"
+import MiniNotesVo from "./vo/MiniNotesVo"
 
 @Injectable()
 export class MiniNotesService {
@@ -27,7 +28,7 @@ export class MiniNotesService {
   async addMiniNote(MiniNoteDto: MiniNoteDto, headers: Record<string, string>): Promise<Result> {
     //新增一篇小记
     const userId = await this.getUserIdByToken(headers)
-
+    //通过userId获取数据库中的小记
     const oldData = await this.MiniNotesDbService.dbService.getByOption(this.COLLECTION_NAME, {
       userId: userId
     })
@@ -82,9 +83,9 @@ export class MiniNotesService {
     })
 
     if (!listData.userId) {
-      this.result = Result.success({ userId: userId, data: [] })
+      this.result = Result.success(new MiniNotesVo(userId, []))
     } else {
-      this.result = Result.success(listData)
+      this.result = Result.success(new MiniNotesVo(userId, listData.data))
     }
 
     return this.result
