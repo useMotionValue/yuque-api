@@ -10,6 +10,7 @@ import { ValidationPipe } from "@nestjs/common"
 import { NestFactory } from "@nestjs/core"
 import { AppModule } from "./app.module"
 import HttpExceptionFilter from "./filters/HttpException"
+import { join } from "path"
 
 const port = 8081
 
@@ -32,6 +33,8 @@ const port = 8081
     methods: "GET,POST,PATCH,DELETE",
     origin: "*"
   })
+
+  // app.useStaticAssets(join(__dirname, "../public"), {})
 
   await app.listen(port)
 })()
