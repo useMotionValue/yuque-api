@@ -11,7 +11,6 @@ import { UserController } from "./user.controller"
 import { JwtModule } from "@nestjs/jwt"
 import { jwtConstants } from "src/config/jwtConstants"
 import { JwtStrategy } from "./jwt.strategy"
-import { GenerateModule } from "src/generate/generate.module"
 
 @Global()
 @Module({
@@ -21,8 +20,7 @@ import { GenerateModule } from "src/generate/generate.module"
       signOptions: {
         expiresIn: "1d" //token expires time
       }
-    }),
-    GenerateModule
+    })
   ],
   controllers: [UserController],
   providers: [UserService, JwtStrategy],

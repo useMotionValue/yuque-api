@@ -1,8 +1,8 @@
 /*
  * @Author: PacificD
  * @Date: 2021-10-07 22:36:14
- * @LastEditors: Pacific_D
- * @LastEditTime: 2023-03-18 09:56:21
+ * @LastEditors: DZR
+ * @LastEditTime: 2023-03-22 10:32:32
  * @Description:
  */
 import { Injectable } from "@nestjs/common"
@@ -15,7 +15,6 @@ import UserRegisterDto from "./dto/user-register.dto"
 import User from "./pojo/User"
 import { v1 as uuidv1 } from "uuid"
 import UserVo from "./vo/UserVo"
-import GenerateService from "src/generate/generate.service"
 import { COLLECTION_NAME_ENUM } from "src/app.module"
 
 @Injectable()
@@ -24,10 +23,7 @@ export class UserService {
   private dbService: LowdbService
   private result: Result
 
-  constructor(
-    private readonly jwtService: JwtService,
-    private readonly generateService: GenerateService
-  ) {
+  constructor(private readonly jwtService: JwtService) {
     this.dbService = new LowdbService(this.COLLECTION_NAME)
   }
 
@@ -54,8 +50,6 @@ export class UserService {
         username: res.username
       })
     })
-    //初始化用户的课程分类和课程表
-    this.generateService.generate(newUser.id)
 
     return this.result
   }
