@@ -1,12 +1,8 @@
 # class-schedule-backend
 
-> [🔗 Repository Link](https://github.com/PacificD/course-shcedule-backend)
->
-> [@PacificD](https://github.com/PacificD)
->
 > WISStudio工作室前端二轮考核的服务端
 >
-> 接口文档详见：`课程表服务端API接口文档.md`
+> 接口文档详见：`语雀API接口文档.md`
 
 ## 启动
 

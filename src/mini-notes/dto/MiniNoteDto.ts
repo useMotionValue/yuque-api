@@ -1,3 +1,11 @@
+/*
+ * @Author: DZR
+ * @Date: 2023-03-20 17:27:29
+ * @LastEditTime: 2023-03-23 16:31:23
+ * @LastEditors: DZR
+ * @Description:
+ * @FilePath: \yuque-api\src\mini-notes\dto\MiniNoteDto.ts
+ */
 import { IsNotEmpty, IsNumberString, IsString } from "class-validator"
 
 //新增小记时需要的参数
@@ -16,4 +24,7 @@ export class MiniNoteDto {
   @IsNotEmpty()
   @IsNumberString()
   notesId: number
+
+  @IsString()
+  tag: string
 }

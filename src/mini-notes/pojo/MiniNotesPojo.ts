@@ -11,10 +11,12 @@ export default class MiniNotesPojo {
   public content: string
   public createTime: string
   public notesId: string
+  public tag: string
 
-  constructor(content: string, createTime: string, notesId: string) {
+  constructor(content: string, createTime: string, notesId: string, tag?: string) {
     this.content = content
     this.createTime = createTime
     this.notesId = notesId
+    this.tag = tag || ""
   }
 }

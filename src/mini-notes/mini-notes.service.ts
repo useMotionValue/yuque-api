@@ -41,7 +41,8 @@ export class MiniNotesService {
           {
             content: MiniNoteDto.content,
             createTime: MiniNoteDto.createTime,
-            notesId: Math.floor(Number(MiniNoteDto.notesId))
+            notesId: Math.floor(Number(MiniNoteDto.notesId)),
+            tag: MiniNoteDto.tag || ""
           }
         ]
       })
@@ -60,7 +61,8 @@ export class MiniNotesService {
       newData.data.push({
         content: MiniNoteDto.content,
         createTime: MiniNoteDto.createTime,
-        notesId: Math.floor(Number(MiniNoteDto.notesId))
+        notesId: Math.floor(Number(MiniNoteDto.notesId)),
+        tag: MiniNoteDto.tag || ""
       })
       await this.MiniNotesDbService.dbService.update(
         this.COLLECTION_NAME,
@@ -108,6 +110,7 @@ export class MiniNotesService {
         if (listData.data[i].notesId === Math.floor(Number(MiniNoteDto.notesId))) {
           newData.data[i].createTime = MiniNoteDto.createTime
           newData.data[i].content = MiniNoteDto.content
+          newData.data[i].tag = MiniNoteDto.tag || ""
           await this.MiniNotesDbService.dbService.update(
             this.COLLECTION_NAME,
             { userId: userId },
